@@ -36,6 +36,9 @@ This file is part of BookReader.
 
 function BookReader() {
 
+
+
+
     // Mode constants
     this.constMode1up = 1;
     this.constMode2up = 2;
@@ -395,6 +398,7 @@ BookReader.prototype.bindGestures = function(jElement) {
         } else if (e.originalEvent.scale < 0.6) {
             br.zoom(-1);
         }
+
     });
 }
 
@@ -417,6 +421,9 @@ BookReader.prototype.drawLeafsOnePage = function() {
     
     var indicesToDisplay = [];
     
+
+
+
     var i;
     var leafTop = 0;
     var leafBottom = 0;
@@ -870,7 +877,8 @@ BookReader.prototype.drawLeafsTwoPage = function() {
     var heightR  = this._getPageHeight(indexR); 
     var widthR   = this._getPageWidth(indexR);
 
-    // $$$ should use getwidth2up?
+    // $$$ should use container').css("height", "");
+     $('#BRcontainer').css("min-height", "100%");
     //var scaledWR = this.twoPage.height*widthR/heightR;
     this.twoPage.scaledWR = this.getPageWidth2UP(indexR);
     this.prefetchImg(indexR);
@@ -883,8 +891,9 @@ BookReader.prototype.drawLeafsTwoPage = function() {
         width:  this.twoPage.scaledWR + 'px',
         zIndex: 2
     }).appendTo('#BRtwopageview');
-        
-
+      
+     $('#BRcontainer').css("height", "");
+     $('#BRcontainer').css("min-height", "100%");
     this.displayedIndices = [this.twoPage.currentIndexL, this.twoPage.currentIndexR];
     this.setMouseHandlers2UP();
     this.twoPageSetCursor();
@@ -2792,8 +2801,8 @@ BookReader.prototype.updateSearchHilites1UP = function() {
                 $(box.div).css({
                     width:  (box.r-box.l)/this.reduce + 'px',
                     height: (box.b-box.t)/this.reduce + 'px',
-                    left:   (box.l)/this.reduce + 'px',
-                    top:    (box.t)/this.reduce +'px'
+                    left:   (box.l)/(this.reduce)+10 + 'px',
+                    top:    (box.t)/this.reduce+10 +'px'
                 });                
             } else {
                 if (null != box.div) {
@@ -2992,8 +3001,8 @@ BookReader.prototype.setHilightCss2UP = function(div, index, left, right, top, b
     $(div).css({
         width:  (right-left)*reduce + 'px',
         height: (bottom-top)*reduce + 'px',
-        left:   pageL+left*reduce + 'px',
-        top:    pageT+top*reduce +'px'
+        left:   pageL+left*reduce+10 + 'px',
+        top:    pageT+top*reduce+10 +'px'
     });
 }
 
@@ -5091,8 +5100,8 @@ BookReader.prototype.ttsHilite1UP = function(chunk) {
         $(div).css({
             width:  (r-l)/this.reduce + 'px',
             height: (b-t)/this.reduce + 'px',
-            left:   l/this.reduce + 'px',
-            top:    t/this.reduce +'px'
+            left:   l/this.reduce+10 + 'px',
+            top:    t/this.reduce+10 +'px'
         });
     }
 
